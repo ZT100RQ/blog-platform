@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Button, Flex } from 'antd';
-import styles from '../../components/Layout/Layout.module.scss';
+import styles from '../../components/Header/Header.module.scss';
 
-function Layout() {
+function Header() {
   return (
     <>
       <header className={styles.Header}>
@@ -28,4 +28,4 @@ function Layout() {
   );
 }
 
-export { Layout };
+export { Header };
