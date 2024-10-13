@@ -1,0 +1,30 @@
+.SignUp {
+  color: rgba(82, 196, 26, 1);
+  font-size: 18px;
+  line-height: 28px;
+  border: 1px solid rgba(82, 196, 26, 1);
+}
+
+.SignIn {
+  font-size: 18px;
+  line-height: 28px;
+  &:hover {
+    background: white !important;
+    color: #4096ff !important;
+  }
+}
+
+.Title {
+  font-size: 18px;
+  line-height: 28px;
+  text-align: left;
+  color: black;
+  &:hover {
+    color: black !important;
+  }
+}
+
+.Header {
+  padding: 16px 22px;
+  background-color: white;
+}

@@ -1,0 +1,61 @@
+.Card {
+  width: 100%;
+  max-width: 938px;
+  height: 140px;
+  box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+  border-radius: 6px;
+  margin: 0 auto;
+  padding: 15px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.Button {
+  border: none;
+  box-shadow: none;
+  &:hover {
+    background: white !important;
+    color: #4096ff !important;
+  }
+}
+
+.Title {
+  margin: 0px;
+  margin-bottom: 4px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 682px;
+  color: rgba(24, 144, 255, 1) !important;
+
+}
+
+.Tag {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.Text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 682px;
+    padding: 4px 0;
+}
+
+.Name {
+  margin: 0px;
+  margin-bottom: 0px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+  font-size: 18px !important;
+}
+
+.Date {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.5);
+}
+
