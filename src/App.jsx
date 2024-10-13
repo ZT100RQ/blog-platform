@@ -14,7 +14,7 @@ function App() {
         <Route path="/articles" element={<ListArticles />} />
         <Route path="/sign-in" element={<SignInForm />} />
         <Route path="/articles/:title" element={<ArticlePage />} />
-        <Route path="*" element={<PageNotFound />} />
+        <Route path="/*" element={<PageNotFound />} />
       </Route>
     </Routes>
   );
