@@ -36,7 +36,7 @@ function ArticlePage() {
               {data?.article.favoritesCount}
             </Button>
           </Flex>
-          <Flex>
+          <Flex wrap>
             {data?.article.tagList &&
               data.article.tagList.map((tag) => {
                 if (!tag.length) return;
