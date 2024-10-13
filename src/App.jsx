@@ -8,15 +8,16 @@ import { PageNotFound } from './components/PageNotFound/PageNotFound';
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
+    <>
+      <Layout />
+      <Routes>
         <Route path="/" element={<ListArticles />} />
         <Route path="/articles" element={<ListArticles />} />
         <Route path="/sign-in" element={<SignInForm />} />
         <Route path="/articles/:title" element={<ArticlePage />} />
-        <Route path="/*" element={<PageNotFound />} />
-      </Route>
-    </Routes>
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
+    </>
   );
 }
 

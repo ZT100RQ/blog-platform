@@ -1,4 +1,4 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button, Flex } from 'antd';
 import styles from '../../components/Layout/Layout.module.scss';
 
@@ -24,7 +24,7 @@ function Layout() {
           </div>
         </Flex>
       </header>
-      <Outlet />
+      {/* <Outlet /> */}
     </>
   );
 }
