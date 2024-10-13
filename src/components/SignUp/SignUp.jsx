@@ -21,11 +21,20 @@ function SignUp() {
       onFinish={(value) => console.log(value)}
       className={styles.Form}
       validateMessages={validateMessages}
+      scrollToFirstError
+      autoComplete="false"
     >
       <Title className={styles.Title} level={4}>
         Create new account
       </Title>
-      <Form.Item label="Username:" name="username" rules={[{ required: true, massage: 'Please input your username!' }]}>
+      <Form.Item
+        label="Username:"
+        name="username"
+        rules={[
+          { required: true, massage: 'Please input your username!' },
+          { min: 3, max: 20 },
+        ]}
+      >
         <Input placeholder="Username" size="large" prefix={<UserOutlined />}></Input>
       </Form.Item>
       <Form.Item
@@ -41,7 +50,10 @@ function SignUp() {
       <Form.Item
         label="Password:"
         name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
+        rules={[
+          { required: true, message: 'Please input your password!' },
+          { min: 6, max: 40 },
+        ]}
         hasFeedback
       >
         <Input.Password placeholder="Password" size="large" prefix={<LockOutlined />} />
