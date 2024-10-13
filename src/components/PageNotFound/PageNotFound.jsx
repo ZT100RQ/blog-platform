@@ -3,18 +3,19 @@ import { Link } from 'react-router-dom';
 
 function PageNotFound() {
   return (
-    <Result
-      status="404"
-      title="404"
-      subTitle="Sorry, the page you visited does not exist."
-      extra={
-        <Link to="/">
-          <Button type="primary" size="large">
-            Go Back Home
-          </Button>
-        </Link>
-      }
-    />
+    // <Result
+    //   status="404"
+    //   title="404"
+    //   subTitle="Sorry, the page you visited does not exist."
+    //   extra={
+    //     <Link to="/">
+    //       <Button type="primary" size="large">
+    //         Go Back Home
+    //       </Button>
+    //     </Link>
+    //   }
+    // />
+    <><p>Page not found</p></>
   );
 }
 
