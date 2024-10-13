@@ -23,7 +23,7 @@ function Article({ title, favoritesCount, tagList, author, description, createdA
               {favoritesCount}
             </Button>
           </Flex>
-          <Flex>
+          <Flex wrap>
             {tagList &&
               tagList.map((tag) => {
                 if (!tag.length) return;
