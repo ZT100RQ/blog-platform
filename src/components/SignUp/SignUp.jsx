@@ -1,17 +1,20 @@
-import { Button, Form, Input, Typography } from 'antd';
-import styles from '../SignInForm/SignInForm.module.scss';
-import { Link } from 'react-router-dom';
+import { Form, Input, Typography, Button } from 'antd';
+import styles from '../SignUp/SignUp.module.scss';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 const { Title } = Typography;
 
-function SignInForm() {
+function SignUp() {
   return (
     <Form layout="vertical" className={styles.Form}>
       <Title className={styles.Title} level={4}>
-        Sign In
+        Create new account
       </Title>
+      <Form.Item label="Username:" name="username">
+        <Input placeholder="Username" size="large"></Input>
+      </Form.Item>
       <Form.Item label="Email address:" name="email">
-        <Input placeholder="Email adress" size="large" prefix={<MailOutlined />} />
+        <Input placeholder="Email address" size="large" prefix={<MailOutlined />} />
       </Form.Item>
       <Form.Item label="Password:" name="password">
         <Input.Password placeholder="Password" size="large" prefix={<LockOutlined />} />
@@ -28,4 +31,4 @@ function SignInForm() {
   );
 }
 
-export { SignInForm };
+export { SignUp };

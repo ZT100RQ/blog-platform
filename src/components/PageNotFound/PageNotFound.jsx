@@ -9,7 +9,9 @@ function PageNotFound() {
       subTitle="Sorry, the page you visited does not exist."
       extra={
         <Link to="/">
-          <Button type="primary">Back Home</Button>
+          <Button type="primary" size="large">
+            Go Back Home
+          </Button>
         </Link>
       }
     />
