@@ -1,4 +1,4 @@
-import styles from './App.module.scss';
+// import styles from './App.module.scss';
 import { Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout/Layout';
 import { ListArticles } from './components/ListArticles/ListArticles';

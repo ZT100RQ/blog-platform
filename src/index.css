@@ -2,6 +2,9 @@ body {
   max-width: 1440px;
   margin: 0 auto;
 }
+html {
+  background-color: #ebeef3;
+}
 
 #root {
   background-color: #ebeef3;

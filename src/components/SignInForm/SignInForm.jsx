@@ -21,7 +21,7 @@ function SignInForm() {
           Login
         </Button>
         <span className={styles.ButtonSpan}>
-          Don't have an account? <Link to="/sign-up">Sign Up</Link>
+          Don&apos;t have an account? <Link to="/sign-up">Sign Up</Link>
         </span>
       </Form.Item>
     </Form>

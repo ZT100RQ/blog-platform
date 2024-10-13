@@ -26,22 +26,22 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 682px;
+  min-width: 200px;
   color: rgba(24, 144, 255, 1) !important;
-
 }
 
 .Tag {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 150px;
-    color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .Text {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 682px;
-    padding: 4px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 682px;
+  padding: 4px 0;
 }
 
 .Name {
@@ -58,4 +58,3 @@
   text-align: center;
   color: rgba(0, 0, 0, 0.5);
 }
-
