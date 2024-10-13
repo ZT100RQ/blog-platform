@@ -24,7 +24,6 @@ function Layout() {
           </div>
         </Flex>
       </header>
-      {/* <Outlet /> */}
     </>
   );
 }
