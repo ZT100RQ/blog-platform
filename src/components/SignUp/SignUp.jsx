@@ -1,28 +1,41 @@
 import { Form, Input, Typography, Button, Checkbox } from 'antd';
 import styles from '../SignUp/SignUp.module.scss';
 import { LockOutlined, MailOutlined, UnlockOutlined, UserOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useCreateNewUserMutation } from '../../features/api/blogApi';
+import { useEffect } from 'react';
 const { Title } = Typography;
 
 const validateMessages = {
   required: '${label} is required!',
   types: {
-    email: '${label} is not a valid email!',
+    email: '${value} is not a valid email!',
   },
 };
 
 function SignUp() {
+  const [createUser, result] = useCreateNewUserMutation({ fixedCacheKey: 'new-user' });
+  console.log(result);
   const [form] = Form.useForm();
+  // const navigate = useNavigate();
+
+  const handleCreateButton = (value) => {
+    createUser(value);
+    // navigate('/');
+  };
+  useEffect(() => {
+    if (result?.isSuccess) localStorage.setItem('blog-platform-userState', JSON.stringify(result.data.user));
+  }, [result]);
+
   return (
     <Form
       form={form}
       layout="vertical"
       name="register"
-      onFinish={(value) => console.log(value)}
+      onFinish={(value) => handleCreateButton(value)}
       className={styles.Form}
       validateMessages={validateMessages}
       scrollToFirstError
-      autoComplete="false"
     >
       <Title className={styles.Title} level={4}>
         Create new account
@@ -30,6 +43,7 @@ function SignUp() {
       <Form.Item
         label="Username:"
         name="username"
+        autoComplete="off"
         rules={[
           { required: true, massage: 'Please input your username!' },
           { min: 3, max: 20 },
