@@ -18,7 +18,7 @@ const alertMessage = (status) => {
 const key = 'updatable';
 
 function SignIn() {
-  const [userLogin, { data, isLoading, isSuccess, error }] = usePostUserLoginMutation();
+  const [userLogin, { data, isLoading, isSuccess, error, reset }] = usePostUserLoginMutation();
   const [messageApi, contextHolder] = message.useMessage();
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [spinning, setSpinning] = useState(false);
@@ -68,7 +68,10 @@ function SignIn() {
       localStorage.setItem('blog-platform-userState', JSON.stringify(data.user));
       successSignIn();
       showLoader();
-      setTimeout(() => navigate('/'), 2900);
+      setTimeout(() => {
+        reset();
+        navigate('/');
+      }, 2900);
     }
     if (error?.status == 401) {
       setVisibleAlert(true);

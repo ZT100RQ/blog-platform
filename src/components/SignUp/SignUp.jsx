@@ -24,7 +24,6 @@ function SignUp() {
   const [visibleAlert, setVisibleAlert] = useState(false);
   const [spinning, setSpinning] = useState(false);
   const [percent, setPercent] = useState(0);
-
   const showLoader = () => {
     setSpinning(true);
     let ptg = -10;
@@ -67,10 +66,12 @@ function SignUp() {
     }
     if (error?.status == 422) {
       setVisibleAlert(true);
-      form.setFields([
-        { name: 'email', errors: ['email or username is already taken'] },
-        { name: 'username', errors: ['email or username is already taken'] },
-      ]);
+      if (error?.data?.errors?.email?.length) {
+        form.setFields([{ name: 'email', errors: ['email is already taken'] }]);
+      }
+      if (error?.data?.errors?.username?.length) {
+        form.setFields([{ name: 'username', errors: ['username is already taken'] }]);
+      }
     }
   }, [isSuccess, data, error, successSignIn, navigate, form, reset]);
 
