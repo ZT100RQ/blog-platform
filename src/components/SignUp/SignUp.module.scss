@@ -36,3 +36,11 @@
   line-height: 20px;
   text-align: center;
 }
+
+.Alert {
+  z-index: 9999;
+  position: absolute;
+  top: 82px;
+  max-width: 320px;
+  width: 100%;
+}

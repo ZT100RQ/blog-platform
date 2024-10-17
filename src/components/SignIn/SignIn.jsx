@@ -15,13 +15,18 @@ const alertMessage = (status) => {
   if (status > 300 || status < 200) return 'Houston we have a problem! Errors!';
 };
 
-function SignIn() {
-  const [messageApi, contextHolder] = message.useMessage();
-  const key = 'updatable';
-  const [visibleAlert, setVisibleAlert] = useState(false);
+const key = 'updatable';
 
+function SignIn() {
+  const [userLogin, { data, isLoading, isSuccess, error }] = usePostUserLoginMutation();
+  const [messageApi, contextHolder] = message.useMessage();
+  const [visibleAlert, setVisibleAlert] = useState(false);
   const [spinning, setSpinning] = useState(false);
   const [percent, setPercent] = useState(0);
+  const navigate = useNavigate();
+  const [form] = useForm();
+  const dispatch = useDispatch();
+
   const showLoader = () => {
     setSpinning(true);
     let ptg = -10;
@@ -53,10 +58,6 @@ function SignIn() {
     }, [1000]);
   }, [messageApi]);
 
-  const navigate = useNavigate();
-  const [form] = useForm();
-  const dispatch = useDispatch();
-  const [userLogin, { data, isLoading, isSuccess, status, error }] = usePostUserLoginMutation();
   const handleLoginButton = (value) => {
     userLogin(value);
   };
@@ -71,15 +72,29 @@ function SignIn() {
     }
     if (error?.status == 401) {
       setVisibleAlert(true);
+      form.setFields([
+        { name: 'email', errors: ['Unauthorized'] },
+        { name: 'password', errors: ['Unauthorized'] },
+      ]);
     }
     if (error?.status == 422) {
       setVisibleAlert(true);
+      form.setFields([
+        { name: 'email', errors: ['email or password is invalid'] },
+        { name: 'password', errors: ['email or password is invalid'] },
+      ]);
     }
     return;
-  }, [data, dispatch, isSuccess, navigate, status, successSignIn, error]);
+  }, [data, dispatch, isSuccess, navigate, successSignIn, error, form]);
 
   return (
-    <Form form={form} layout="vertical" className={styles.Form} onFinish={(value) => handleLoginButton(value)}>
+    <Form
+      form={form}
+      layout="vertical"
+      className={styles.Form}
+      onFinish={(value) => handleLoginButton(value)}
+      onFinishFailed={({ values, errorFields, outOfDate }) => console.log(values, errorFields, outOfDate)}
+    >
       {isSuccess && <Spin spinning={spinning} percent={percent} fullscreen />}
       {visibleAlert && error && (
         <Alert

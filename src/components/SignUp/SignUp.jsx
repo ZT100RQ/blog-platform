@@ -1,42 +1,101 @@
-import { Form, Input, Typography, Button, Checkbox } from 'antd';
+import { Form, Input, Typography, Button, Checkbox, message, Spin, Alert } from 'antd';
 import styles from '../SignUp/SignUp.module.scss';
 import { LockOutlined, MailOutlined, UnlockOutlined, UserOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCreateNewUserMutation } from '../../features/api/blogApi';
-import { useEffect } from 'react';
-const { Title } = Typography;
+import { useCallback, useEffect, useState } from 'react';
 
+const { Title } = Typography;
 const validateMessages = {
   required: '${label} is required!',
   types: {
     email: '${value} is not a valid email!',
   },
 };
+const key = 'updatable';
 
 function SignUp() {
-  const [createUser, result] = useCreateNewUserMutation({ fixedCacheKey: 'new-user' });
-  console.log(result);
+  const [createUser, { data, isSuccess, error, isLoading, reset }] = useCreateNewUserMutation({
+    fixedCacheKey: 'new-user',
+  });
   const [form] = Form.useForm();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
+  const [visibleAlert, setVisibleAlert] = useState(false);
+  const [spinning, setSpinning] = useState(false);
+  const [percent, setPercent] = useState(0);
 
-  const handleCreateButton = (value) => {
-    createUser(value);
-    // navigate('/');
+  const showLoader = () => {
+    setSpinning(true);
+    let ptg = -10;
+    const interval = setInterval(() => {
+      ptg += 5;
+      setPercent(ptg);
+      if (ptg > 120) {
+        clearInterval(interval);
+        setSpinning(false);
+        setPercent(0);
+      }
+    }, 100);
   };
+
+  const successSignIn = useCallback(() => {
+    setVisibleAlert(true);
+    messageApi.open({
+      key,
+      type: 'success',
+      content: 'Account created successfully!',
+    });
+    setTimeout(() => {
+      messageApi.open({
+        key,
+        type: 'success',
+        content: 'Redirection to login page...',
+        duration: 1.5,
+      });
+    }, [1000]);
+  }, [messageApi]);
+
   useEffect(() => {
-    if (result?.isSuccess) localStorage.setItem('blog-platform-userState', JSON.stringify(result.data.user));
-  }, [result]);
+    if (isSuccess) {
+      successSignIn();
+      showLoader();
+      setTimeout(() => {
+        reset();
+        navigate('/sign-in');
+      }, 2900);
+    }
+    if (error?.status == 422) {
+      setVisibleAlert(true);
+      form.setFields([
+        { name: 'email', errors: ['email or username is already taken'] },
+        { name: 'username', errors: ['email or username is already taken'] },
+      ]);
+    }
+  }, [isSuccess, data, error, successSignIn, navigate, form, reset]);
 
   return (
     <Form
       form={form}
       layout="vertical"
       name="register"
-      onFinish={(value) => handleCreateButton(value)}
+      onFinish={(value) => createUser(value)}
       className={styles.Form}
       validateMessages={validateMessages}
       scrollToFirstError
     >
+      {contextHolder}
+      {isSuccess && <Spin spinning={spinning} percent={percent} fullscreen />}
+      {visibleAlert && error && (
+        <Alert
+          className={styles.Alert}
+          showIcon
+          message="Email is already taken!"
+          type="error"
+          closable
+          afterClose={() => setVisibleAlert(false)}
+        />
+      )}
       <Title className={styles.Title} level={4}>
         Create new account
       </Title>
@@ -107,7 +166,14 @@ function SignUp() {
         <Checkbox>I agree to the processing of my personal information</Checkbox>
       </Form.Item>
       <Form.Item>
-        <Button className={styles.Button} type="primary" htmlType="submit" block size="large">
+        <Button
+          disabled={isLoading || visibleAlert}
+          className={styles.Button}
+          type="primary"
+          htmlType="submit"
+          block
+          size="large"
+        >
           Create
         </Button>
         <span className={styles.ButtonSpan}>
