@@ -90,7 +90,7 @@ function SignUp() {
         <Alert
           className={styles.Alert}
           showIcon
-          message="Email is already taken!"
+          message="Email or username is already taken!"
           type="error"
           closable
           afterClose={() => setVisibleAlert(false)}
