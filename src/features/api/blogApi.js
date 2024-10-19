@@ -6,30 +6,27 @@ export const blogApi = createApi({
   reducerPath: 'blogApi',
   baseQuery: fetchBaseQuery({
     baseUrl: URL,
-    prepareHeaders: (headers) => {
-      const token = localStorage.getItem('blog-platform-token');
+    prepareHeaders: (headers, { getState }) => {
+      const token = getState()?.user?.user?.token;
       if (token) {
-        headers.set('Authorization', `Token ${token}`);
+        headers.set('authorization', `Bearer ${token}`);
       }
       return headers;
     },
   }),
+  tagTypes: ['Articles', 'User', 'Article'],
   endpoints: (builder) => ({
     getCurrentUser: builder.query({
       query: () => '/user',
-      // prepareHeaders: (headers) => {
-      //   const token = localStorage.getItem('blog-platform-token');
-      //   if (token) {
-      //     headers.set('Authorization', `Token ${token}`);
-      //   }
-      //   return headers;
-      // },
+      providesTags: ['User'],
     }),
     fetchArticles: builder.query({
       query: (num) => `articles?limit=5&offset=${num}`,
+      providesTags: ['Articles'],
     }),
     fetchArticle: builder.query({
       query: (slug) => `/articles/${slug} `,
+      providesTags: ['Article'],
     }),
     createNewUser: builder.mutation({
       query: ({ username, email, password }) => ({
@@ -56,6 +53,16 @@ export const blogApi = createApi({
         },
       }),
     }),
+    updateUser: builder.mutation({
+      query: (user) => ({
+        url: 'user',
+        method: 'PUT',
+        body: {
+          user: user,
+        },
+      }),
+      invalidatesTags: ['User'],
+    }),
   }),
 });
 
@@ -65,4 +72,5 @@ export const {
   useFetchArticlesQuery,
   useFetchArticleQuery,
   useCreateNewUserMutation,
+  useUpdateUserMutation,
 } = blogApi;

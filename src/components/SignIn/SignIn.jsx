@@ -64,7 +64,6 @@ function SignIn() {
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(signInUser(data.user));
       localStorage.setItem('blog-platform-userState', JSON.stringify(data.user));
       successSignIn();
       showLoader();
@@ -72,6 +71,7 @@ function SignIn() {
         reset();
         navigate('/');
       }, 2900);
+      dispatch(signInUser(data.user));
     }
     if (error?.status == 401) {
       setVisibleAlert(true);
@@ -88,7 +88,7 @@ function SignIn() {
       ]);
     }
     return;
-  }, [data, dispatch, isSuccess, navigate, successSignIn, error, form]);
+  }, [data, dispatch, isSuccess, navigate, successSignIn, error, form, reset]);
 
   return (
     <Form

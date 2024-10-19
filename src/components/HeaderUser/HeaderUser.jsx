@@ -3,15 +3,17 @@ import defaultAvatar from '../../assets/images/defaultAvatar.svg';
 import styles from '../HeaderUser/HeaderUser.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../features/userSlice/userSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const { Title } = Typography;
 
 function HeaderUser() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleLogoutButton = () => {
     dispatch(logoutUser());
     localStorage.removeItem('blog-platform-userState');
+    navigate('/');
   };
   const { user } = useSelector((state) => state.user);
   return (
@@ -21,10 +23,12 @@ function HeaderUser() {
         <Flex align="center" gap={10}>
           <Link to={'/profile'}>
             <Title className={styles.Title} level={5}>
-              {user?.username || ''}
+              {user?.username}
             </Title>
           </Link>
-          <Avatar size={40} src={user?.image || defaultAvatar} />
+          <Link to={'/profile'}>
+            <Avatar size={40} src={user?.image || defaultAvatar} />
+          </Link>
         </Flex>
         <Button onClick={handleLogoutButton} className={styles.Logout} size="large">
           Logout
