@@ -89,7 +89,7 @@ function ProfilePage() {
           initialValue={user?.image}
           label="Avatar image(url):"
           name="image"
-          rules={[{ type: 'url', warningOnly: true }]}
+          rules={[{ type: 'url', message: 'This URL is not valid!' }]}
         >
           <Input placeholder="Avatar image" size="large" />
         </Form.Item>
