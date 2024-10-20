@@ -37,6 +37,7 @@ function ProfilePage() {
   useEffect(() => {
     if (isSuccess) {
       dispatch(signInUser(data.user));
+      localStorage.setItem('blog-platform-userState', JSON.stringify(data.user));
       success();
       reset();
     }
