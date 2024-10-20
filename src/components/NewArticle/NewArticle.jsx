@@ -121,7 +121,7 @@ function NewArticle() {
                       rules={[{ required: true, message: `Cannot add empty tag #${++i}` }]}
                       name={[subField.name, 'tag']}
                     >
-                      <Input placeholder="Tag" size="large" />
+                      <Input placeholder="Tag" size="large" className={styles.ButtonAdd} />
                     </Form.Item>
                     <Form.Item noStyle>
                       <Button
