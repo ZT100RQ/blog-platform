@@ -19,7 +19,9 @@ function HeaderUser() {
   return (
     <>
       <Flex align="center" gap={10}>
-        <Button className={styles.Create}>Create article</Button>
+        <Link to={'/new-article'}>
+          <Button className={styles.Create}>Create article</Button>
+        </Link>
         <Flex align="center" gap={10}>
           <Link to={'/profile'}>
             <Title className={styles.Title} level={5}>

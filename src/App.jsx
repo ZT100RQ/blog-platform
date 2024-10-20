@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { ProtectedRoute } from './components/ProtectedRoute/ProtectedRoute';
 import { ProfilePage } from './components/ProfilePage/ProfilePage';
 import { ProtectedProfileRoute } from './components/ProtectedProfileRout/ProtectedProfileRoute';
+import { NewArticle } from './components/NewArticle/NewArticle';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +34,7 @@ function App() {
         <Route path="*" element={<PageNotFound />} />
         <Route element={<ProtectedProfileRoute />}>
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/new-article" element={<NewArticle />} />
         </Route>
       </Routes>
     </>

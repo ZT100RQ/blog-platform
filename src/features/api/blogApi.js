@@ -63,6 +63,25 @@ export const blogApi = createApi({
       }),
       invalidatesTags: ['User'],
     }),
+    postNewArticle: builder.mutation({
+      query: (article) => ({
+        url: 'articles',
+        method: 'POST',
+        body: {
+          article: article,
+        },
+      }),
+      invalidatesTags: ['Articles'],
+    }),
+    updateArticle: builder.mutation({
+      query: (article, slug) => ({
+        url: `/articles/${slug}`,
+        method: 'PUT',
+        body: {
+          article: article,
+        },
+      }),
+    }),
   }),
 });
 
@@ -73,4 +92,5 @@ export const {
   useFetchArticleQuery,
   useCreateNewUserMutation,
   useUpdateUserMutation,
+  usePostNewArticleMutation,
 } = blogApi;

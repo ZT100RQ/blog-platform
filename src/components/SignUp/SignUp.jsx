@@ -18,6 +18,7 @@ function SignUp() {
   const [createUser, { data, isSuccess, error, isLoading, reset }] = useCreateNewUserMutation({
     fixedCacheKey: 'new-user',
   });
+  console.log(error);
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
